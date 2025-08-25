@@ -5,15 +5,16 @@
   <title>تجربة Firebase</title>
 </head>
 <body>
-  <h2>🔹 تجربة حفظ بيانات في Firebase</h2>
-  <input id="text" placeholder="اكتب كلمة">
-  <button onclick="saveData()">💾 حفظ</button>
+  <h2>تجربة حفظ بيانات في Firebase</h2>
+  <input id="myInput" type="text" placeholder="اكتب اسمك">
+  <button onclick="saveData()">حفظ</button>
 
+  <!-- روابط Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js"></script>
 
   <script>
-    // إعدادات مشروعك (انسخ نفس القيم من Firebase Config)
+    // إعدادات Firebase الخاصة بمشروعك
     const firebaseConfig = {
       apiKey: "AIzaSyAYiNmm_zMk2-nAOKolSWOCctJFvLmzDgY",
       authDomain: "dilovan-mobail.firebaseapp.com",
@@ -24,15 +25,22 @@
       appId: "1:810315687480:web:f124b761252e526dd1e8cd"
     };
 
-    // تشغيل Firebase
+    // تهيئة Firebase
     const app = firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
     // دالة الحفظ
     function saveData() {
-      const val = document.getElementById("text").value;
-      db.ref("test").push({ message: val });
-      alert("✔ تم الحفظ في Firebase");
+      const value = document.getElementById("myInput").value;
+      if(value.trim() !== ""){
+        db.ref("testData").push({
+          name: value,
+          time: new Date().toISOString()
+        });
+        alert("تم الحفظ بنجاح ✅");
+      } else {
+        alert("اكتب شي قبل الحفظ!");
+      }
     }
   </script>
 </body>
